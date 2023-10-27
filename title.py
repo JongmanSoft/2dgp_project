@@ -1,6 +1,8 @@
 from pico2d import *
 
+
 class Title:
+    animation =0
     def __init__(self):
         self.bgm = load_music('resource/title_bgm.mp3')
         self.title_art = [load_image('resource/title_art.png'),400,300]
@@ -11,9 +13,19 @@ class Title:
     def enter(self):
         self.bgm.repeat_play()
 
-    def exit(self): pass
+    def exit(self):
+        self.bgm.stop()
 
-    def update(self): pass
+
+    def update(self):
+        if self.animation > 0:
+            if self.animation > 20:
+                self.exit()
+            else :
+                self.title_polygon[1] += 20
+                self.title_name[1] += 40
+                self.title_sub[1] += 40
+                self.animation += 1
 
     def draw(self):
         self.title_art[0].draw(self.title_art[1], self.title_art[2])
@@ -21,7 +33,13 @@ class Title:
         self.title_name[0].draw(self.title_name[1], self.title_name[2])
         self.title_sub[0].draw(self.title_sub[1], self.title_sub[2])
 
-    def handle_events(self): pass
+    def handle_events(self):
+        events = get_events()
+        for event in events:
+            if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
+                self.animation = 1
+
+
 
     def pause(self): pass
 
