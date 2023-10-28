@@ -1,9 +1,10 @@
 from pico2d import *
 import title
+import text_scene
 open_canvas(800, 600)
 current_scene = 0
 scene = [title.Title()]
-T = title.Title()
+T = text_scene.text_scene()
 
 T.enter()
 while True:
