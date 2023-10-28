@@ -2,6 +2,7 @@ from pico2d import *
 
 
 class text_scene:
+    run = 1
     def __init__(self):
         self.font = load_font('resource/떡볶이체.ttf',25)
 
@@ -23,6 +24,7 @@ class text_scene:
         pass
 
     def exit(self):
+        self.run =0
         pass
 
 
@@ -43,7 +45,10 @@ class text_scene:
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
                 self.text.pop(0)
+                if len(self.text) ==0 :
+                    self.run = 0
 
+    def running(self): return self.run
 
 
     def pause(self): pass

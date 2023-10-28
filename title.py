@@ -3,6 +3,7 @@ from pico2d import *
 
 class Title:
     animation =0
+    run = 1
     def __init__(self):
         self.bgm = load_music('resource/title_bgm.mp3')
         self.title_art = [load_image('resource/title_art.png'),400,300]
@@ -11,10 +12,12 @@ class Title:
         self.title_sub = [load_image('resource/title_sub.png'),500,100]
 
     def enter(self):
+
         self.bgm.repeat_play()
 
     def exit(self):
         self.bgm.stop()
+        self.run = 0
 
 
     def update(self):
@@ -39,7 +42,8 @@ class Title:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
                 self.animation = 1
 
-
+    def running(self):
+        return self.run
 
     def pause(self): pass
 
