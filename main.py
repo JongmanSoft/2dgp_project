@@ -1,9 +1,10 @@
 from pico2d import *
 import title
 import text_scene
+import air_hockey_scene
 open_canvas(800, 600)
 current_scene = 0
-scene = [title.Title(), text_scene.text_scene()]
+scene = [title.Title(), text_scene.text_scene(),air_hockey_scene.air_hockey_scene()]
 T = text_scene.text_scene()
 
 scene[0].enter()

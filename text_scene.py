@@ -55,12 +55,13 @@ class text_scene:
         pass
 
     def draw(self):
-        self.back_image[0].draw(400,300,800,600)
-        if self.text[0][3] == 0:
-            self.girl_image[self.text[0][0]].draw(400,300)
-        self.window.draw(400,100,760,160)
-        self.font.draw(70,140,self.text[0][1],(182,23,76))
-        self.font.draw(70, 100, self.text[0][2], (0, 23, 76))
+        if (len(self.text) != 0):
+            self.back_image[0].draw(400,300,800,600)
+            if self.text[0][3] == 0:
+                self.girl_image[self.text[0][0]].draw(400,300)
+            self.window.draw(400,100,760,160)
+            self.font.draw(70,140,self.text[0][1],(182,23,76))
+            self.font.draw(70, 100, self.text[0][2], (0, 23, 76))
 
 
     def handle_events(self):
