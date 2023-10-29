@@ -1,12 +1,17 @@
 from pico2d import *
+import pygame
 
+# Pygame 초기화
+pygame.init()
 
+# Pygame 오디오 초기화
+pygame.mixer.init()
 
 class text_scene:
     run = 1
     def __init__(self):
-        self.bgm = load_music('resource/talk.mp3')
-        self.click = load_music('resource/click.wav')
+        self.bgm = pygame.mixer.Sound('resource/talk.mp3')
+        self.click = pygame.mixer.Sound('resource/click.wav')
         self.font = load_font('resource/떡볶이체.ttf',25)
 
         self.back_image = []
@@ -41,13 +46,13 @@ class text_scene:
 
 
     def enter(self):
-        self.bgm.repeat_play()
-        pass
+        self.bgm_channel = self.bgm.play(loops=-1)
+
 
     def exit(self):
         self.bgm.stop()
         self.run =0
-        pass
+
 
 
     def update(self):
@@ -68,6 +73,9 @@ class text_scene:
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
+                if self.click_channel is not None:
+                    self.click_channel.stop()  # 이미 클릭 효과음이 재생 중이라면 중지
+                self.click_channel = self.click.play()  # 클릭 효과음을 별도의 채널에서 재생
                 self.text.pop(0)
                 if len(self.text) ==0 :
                     self.run = 0
