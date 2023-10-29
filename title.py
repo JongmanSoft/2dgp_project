@@ -6,6 +6,7 @@ class Title:
     run = 1
     def __init__(self):
         self.bgm = load_music('resource/title_bgm.mp3')
+        self.click = load_music('resource/home.wav')
         self.title_art = [load_image('resource/title_art.png'),400,300]
         self.title_polygon = [load_image('resource/title_polygon.png'),600,300]
         self.title_name = [load_image('resource/title_name.png'),500,200]
@@ -41,6 +42,7 @@ class Title:
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
                 self.animation = 1
+                self.click.play()
 
     def running(self):
         return self.run
