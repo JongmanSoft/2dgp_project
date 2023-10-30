@@ -70,9 +70,13 @@ class air_hockey_scene:
                 self.click = 1
             if event.type == SDL_MOUSEMOTION and self.click == 1:
                 self.objects[1].x = event.x
+                if (event.x < 190): self.objects[1].x = 190
+                if (event.x> 610):self.objects[1].x = 610
                 self.objects[1].y = 600-event.y
+                if (event.y < 300):self.objects[1].y = 300
+                if (event.y > 550):self.objects[1].y = 50
             if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
-                self.click =0
+                self.click = 0
 
 
     def running(self):
