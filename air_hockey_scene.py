@@ -20,7 +20,8 @@ class my_handle:
         self.y = 100
         self.dir = 0
         self.speed = 0
-
+        self.sx = 0
+        self.sy = 0
     def draw(self):
         self.sprite.draw(self.x, self.y)
 
