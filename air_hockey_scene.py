@@ -16,8 +16,10 @@ class puck:
     def update(self):
         self.x = self.x + (self.xdir//100)
         self.y = self.y + (self.ydir//100)
-        if (self.x > 610 or self.x < 190): self.xdir *= -1
-        if (self.y > 550 or self.y < 50):self.ydir *= -1
+        if (self.x > 600):self.xdir = -abs(self.xdir)
+        if (self.x < 200): self.xdir = abs(self.xdir)
+        if (self.y > 540 ):self.ydir = -abs(self.ydir)
+        if (self.y < 60): self.ydir = abs(self.ydir)
 
 
 
