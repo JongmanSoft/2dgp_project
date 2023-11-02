@@ -68,6 +68,11 @@ class air_hockey_scene:
 
 
     def update(self):
+        if (self.objects[1].x > self.objects[0].x-25 and self.objects[1].x < self.objects[0].x +25):
+            if (self.objects[1].x > self.objects[0].x - 25 and self.objects[1].x < self.objects[0].x + 25):
+                self.objects[0].xdir = self.objects[1].x -self.objects[1].sx
+                self.objects[0].ydir = self.objects[1].y - self.objects[1].sy
+
         for o in self.objects:
             o.update()
         pass
@@ -83,6 +88,8 @@ class air_hockey_scene:
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1 :
+                self.objects[1].sx = event.x
+                self.objects[1].sy = event.y
                 self.click = 1
             if event.type == SDL_MOUSEMOTION and self.click == 1:
                 self.objects[1].x = event.x
