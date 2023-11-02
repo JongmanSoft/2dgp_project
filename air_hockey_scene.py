@@ -14,8 +14,8 @@ class puck:
         self.sprite.draw(self.x, self.y)
 
     def update(self):
-        self.x = self.x + (self.xdir//2)
-        self.y = self.y + (self.ydir//2)
+        self.x = self.x + (self.xdir//100)
+        self.y = self.y + (self.ydir//100)
         if (self.x > 610 or self.x < 190): self.xdir *= -1
         if (self.y > 550 or self.y < 50):self.ydir *= -1
 
@@ -69,7 +69,8 @@ class air_hockey_scene:
 
     def update(self):
         if (self.objects[1].x > self.objects[0].x-25 and self.objects[1].x < self.objects[0].x +25):
-            if (self.objects[1].x > self.objects[0].x - 25 and self.objects[1].x < self.objects[0].x + 25):
+            if (self.objects[1].y > self.objects[0].y - 25 and self.objects[1].y < self.objects[0].y + 25):
+                print("ok")
                 self.objects[0].xdir = self.objects[1].x -self.objects[1].sx
                 self.objects[0].ydir = self.objects[1].y - self.objects[1].sy
 
