@@ -6,11 +6,17 @@ class puck:
         self.sprite = load_image('resource/puck.png')
         self.x = 400
         self.y = 300
-        self.dir = 0
+        self.xdir = 0
+        self.ydir = 0
         self.speed = 0
 
     def draw(self):
         self.sprite.draw(self.x, self.y)
+
+    def update(self):
+        self.x = self.x + (self.xdir)
+        self.y = self.y + (self.ydir)
+
 
 
 class my_handle:
@@ -24,6 +30,8 @@ class my_handle:
         self.sy = 0
     def draw(self):
         self.sprite.draw(self.x, self.y)
+    def update(self):
+        pass
 
 class you_handle:
     def __init__(self):
@@ -32,6 +40,9 @@ class you_handle:
         self.y = 500
         self.dir = 0
         self.speed = 0
+
+    def update(self):
+        pass
 
     def draw(self):
         self.sprite.draw(self.x, self.y)
@@ -55,6 +66,7 @@ class air_hockey_scene:
 
 
     def update(self):
+        self.objects.update()
         pass
 
     def draw(self):
