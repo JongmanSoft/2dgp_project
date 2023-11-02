@@ -14,8 +14,8 @@ class puck:
         self.sprite.draw(self.x, self.y)
 
     def update(self):
-        self.x = self.x + (self.xdir)
-        self.y = self.y + (self.ydir)
+        self.x = self.x + (self.xdir//2)
+        self.y = self.y + (self.ydir//2)
         if (self.x > 610 or self.x < 190): self.xdir *= -1
         if (self.y > 550 or self.y < 50):self.ydir *= -1
 
