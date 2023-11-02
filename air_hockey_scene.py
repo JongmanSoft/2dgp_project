@@ -16,6 +16,8 @@ class puck:
     def update(self):
         self.x = self.x + (self.xdir)
         self.y = self.y + (self.ydir)
+        if (self.x > 610 or self.x < 190): self.xdir *= -1
+        if (self.y > 550 or self.y < 50):self.ydir *= -1
 
 
 
@@ -66,7 +68,8 @@ class air_hockey_scene:
 
 
     def update(self):
-        self.objects.update()
+        for o in self.objects:
+            o.update()
         pass
 
     def draw(self):
