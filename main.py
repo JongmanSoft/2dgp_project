@@ -11,8 +11,8 @@ scene[0].enter()
 while True:
     clear_canvas()
     scene[current_scene].draw()
-    scene[current_scene].update()
     scene[current_scene].handle_events()
+    scene[current_scene].update()
     #delay(0.05)
     update_canvas()
     if (scene[current_scene].running() == 0):

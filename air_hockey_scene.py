@@ -36,10 +36,8 @@ class my_handle:
     def draw(self):
         self.sprite.draw(self.x, self.y)
     def update(self):
-        if (self.time+2 < get_time() ):
-            self.time = get_time()
-            self.sx = self.x
-            self.sy = self.y
+        self.sx = self.x
+        self.sy = self.y
         pass
 
 class you_handle:
@@ -95,6 +93,7 @@ class air_hockey_scene:
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1 :
+
                 self.click = 1
             if event.type == SDL_MOUSEMOTION and self.click == 1:
                 self.objects[1].x = event.x
