@@ -14,8 +14,8 @@ class puck:
         self.sprite.draw(self.x, self.y)
 
     def update(self):
-        self.x = self.x + (self.xdir//4)
-        self.y = self.y + (self.ydir//4)
+        self.x = self.x + (self.xdir//100)
+        self.y = self.y + (self.ydir//100)
         if (self.x > 600):self.xdir = -abs(self.xdir)
         if (self.x < 200): self.xdir = abs(self.xdir)
         if (self.y > 540 ):self.ydir = -abs(self.ydir)
@@ -36,9 +36,10 @@ class my_handle:
     def draw(self):
         self.sprite.draw(self.x, self.y)
     def update(self):
-        
-        self.sx = self.x
-        self.sy = self.y
+        if self.time+2 < get_time():
+            self.time = get_time()
+            self.sx = self.x
+            self.sy = self.y
         pass
 
 class you_handle:
