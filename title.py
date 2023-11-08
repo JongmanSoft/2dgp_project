@@ -23,12 +23,12 @@ class Title:
 
     def update(self):
         if self.animation > 0:
-            if self.animation > 20:
+            if self.animation > 400:
                 self.exit()
             else :
-                self.title_polygon[1] += 20
-                self.title_name[1] += 40
-                self.title_sub[1] += 40
+                self.title_polygon[1] += 1
+                self.title_name[1] += 2
+                self.title_sub[1] += 2
                 self.animation += 1
 
     def draw(self):
