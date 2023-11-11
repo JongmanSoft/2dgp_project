@@ -1,10 +1,13 @@
 from pico2d import *
 
 
+
 class bowling_scene:
     animation =0
     run = 1
     def __init__(self):
+        self.back = load_image('resource/bowling_back.png')
+
         pass
 
 
