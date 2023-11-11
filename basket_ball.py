@@ -1,5 +1,18 @@
 from pico2d import *
 
+time = 0
+class goal:
+    def __init__(self):
+        self.sprite = [load_image('resource/goaldae.png'),load_image('resource/ring.png')]
+        self.x = 400
+        self.dir = 1
+    def update(self):
+        global time
+        self.x += (1+time/10.0)*self.dir
+        if (self.x>650):self.dir = -1
+        if (self.x <150):self.dir = 1
+
+
 
 class basket_ball_scene:
     animation =0
