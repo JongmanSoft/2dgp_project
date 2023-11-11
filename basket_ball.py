@@ -11,6 +11,10 @@ class goal:
         self.x += (1+time/10.0)*self.dir
         if (self.x>650):self.dir = -1
         if (self.x <150):self.dir = 1
+    def draw(self):
+        for s in self.sprite:
+            s.draw(self.x,300)
+
 
 
 
@@ -18,6 +22,8 @@ class basket_ball_scene:
     animation =0
     run = 1
     def __init__(self):
+        self.back = load_image('resource/basketball_background.png')
+        self.goal_dae = goal()
         pass
 
 
@@ -29,9 +35,14 @@ class basket_ball_scene:
 
 
     def update(self):
+        global time
+        time += 1
+        self.goal_dae.update()
         pass
 
     def draw(self):
+        self.back.draw(400,300)
+        self.goal_dae.draw()
         pass
 
 
