@@ -14,8 +14,8 @@ class puck:
         self.sprite.draw(self.x, self.y)
 
     def update(self):
-        self.x = self.x + (self.xdir//100)
-        self.y = self.y + (self.ydir//100)
+        self.x = self.x + (self.xdir//10)
+        self.y = self.y + (self.ydir//10)
         if (self.x > 600):self.xdir = -abs(self.xdir)
         if (self.x < 200): self.xdir = abs(self.xdir)
         if (self.y > 540 ):self.ydir = -abs(self.ydir)
@@ -104,8 +104,10 @@ class air_hockey_scene:
                 self.objects[1].y = 600-event.y
                 if (event.y < 300):self.objects[1].y = 300
                 if (event.y > 550):self.objects[1].y = 50
-            if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
+            if event.type == SDL_MOUSEBUTTONUP and event.button == 1:
                 self.click = 0
+            if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+                self.run = 0
 
 
     def running(self):

@@ -53,11 +53,11 @@ class bowling_scene:
 
         events = get_events()
         for event in events:
-            if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1 :
-                pass
             if event.type == SDL_MOUSEMOTION:
                 pass
-            if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
+            if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1:
+                self.run =0
+
                 pass
 
 
