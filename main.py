@@ -6,7 +6,7 @@ import bowling
 import basket_ball
 open_canvas(800, 600)
 current_scene = 0
-scene = [basket_ball.basket_ball_scene(),bowling.bowling_scene(), title.Title(), text_scene.text_scene(), air_hockey_scene.air_hockey_scene()]
+scene = [title.Title(), text_scene.text_scene(), air_hockey_scene.air_hockey_scene()]
 T = text_scene.text_scene()
 
 scene[0].enter()

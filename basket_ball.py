@@ -23,7 +23,7 @@ class ball:
         self.y = 100
         self.z = 200
         self.dir = 90
-        self.speed = 1
+        self.speed = 3
         self.frame = 0
     def update(self):
         if (self.speed != 0):
