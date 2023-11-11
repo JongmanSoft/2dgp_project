@@ -8,7 +8,7 @@ class my_ball:
         self.y = 100
         self.dir = 70
         self.frame = 0
-        self.speed = 1
+        self.speed = 3
     def draw(self):
         self.sprite.clip_composite_draw(self.frame*50,0,50,50,0, 'h',self.x,self.y,200-(self.y/2),200-(self.y/2))
     def update(self):
@@ -17,6 +17,7 @@ class my_ball:
             self.frame = self.frame%6
             self.x += cos(radians(self.dir))*self.speed
             self.y += sin(radians(self.dir))*self.speed
+            if (self.y>320):self.x = 400;self.y = 100
         pass
 
 
