@@ -1,5 +1,17 @@
 from pico2d import *
 
+class my_ball:
+    def __init__(self):
+        self.sprite = load_image('resource/my_ball.png')
+        self.x = 400
+        self.y = 100
+        self.dir = 0
+        self.frame = 0
+        self.speed = 0
+    def draw(self):
+        self.sprite.clip_composite_draw()
+    def update(self):
+        pass
 
 
 class bowling_scene:
