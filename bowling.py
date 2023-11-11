@@ -11,6 +11,9 @@ class my_ball:
     def draw(self):
         self.sprite.clip_composite_draw()
     def update(self):
+        if not(self.speed == 0):
+            self.frame += 1
+            self.frame = self.frame%6
         pass
 
 
