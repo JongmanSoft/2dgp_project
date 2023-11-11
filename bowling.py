@@ -7,9 +7,9 @@ class my_ball:
         self.y = 100
         self.dir = 0
         self.frame = 0
-        self.speed = 0
+        self.speed = 1
     def draw(self):
-        self.sprite.clip_composite_draw()
+        self.sprite.clip_composite_draw(self.frame*100,0,100,100,self.dir,0,self.x,self.y,200-(self.y/10),200-(self.y/10))
     def update(self):
         if not(self.speed == 0):
             self.frame += 1
@@ -22,7 +22,7 @@ class bowling_scene:
     run = 1
     def __init__(self):
         self.back = load_image('resource/bowling_back.png')
-
+        self.balls = [my_ball()]
         pass
 
 
@@ -34,6 +34,7 @@ class bowling_scene:
 
 
     def update(self):
+
         pass
 
     def draw(self):
