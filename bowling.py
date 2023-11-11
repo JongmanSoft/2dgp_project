@@ -1,19 +1,22 @@
 from pico2d import *
+from math import sin,cos,radians
 
 class my_ball:
     def __init__(self):
         self.sprite = load_image('resource/my_ball.png')
         self.x = 400
         self.y = 100
-        self.dir = 0
+        self.dir = 70
         self.frame = 0
         self.speed = 1
     def draw(self):
-        self.sprite.clip_composite_draw(self.frame*100,0,100,100,self.dir,0,self.x,self.y,200-(self.y/10),200-(self.y/10))
+        self.sprite.clip_composite_draw(self.frame*50,0,50,50,0, 'h',self.x,self.y,200-(self.y/2),200-(self.y/2))
     def update(self):
         if not(self.speed == 0):
             self.frame += 1
             self.frame = self.frame%6
+            self.x += cos(radians(self.dir))*self.speed
+            self.y += sin(radians(self.dir))*self.speed
         pass
 
 
@@ -34,10 +37,14 @@ class bowling_scene:
 
 
     def update(self):
-
+        for ball in self.balls:
+            ball.update()
         pass
 
     def draw(self):
+        self.back.draw(400,300)
+        for ball in self.balls:
+            ball.draw()
         pass
 
 
