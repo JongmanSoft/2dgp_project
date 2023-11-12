@@ -1,6 +1,28 @@
 from pico2d import *
 from math import radians,cos,sin,atan2,degrees,sqrt
 time = 0
+
+
+def calculate_angle(x1, y1, x2, y2):
+
+    vector1 = (x1, y1)
+    vector2 = (x2, y2)
+
+    dot_product = vector1[0] * vector2[0] + vector1[1] * vector2[1]
+    magnitude1 = (vector1[0] ** 2 + vector1[1] ** 2) ** 0.5
+    magnitude2 = (vector2[0] ** 2 + vector2[1] ** 2) ** 0.5
+
+    cos_theta = dot_product / (magnitude1 * magnitude2)
+    angle_rad = atan2(vector2[1], vector2[0]) - atan2(vector1[1], vector1[0])
+
+    if angle_rad < 0:
+        angle_rad += 2 * 3.141592653589793
+
+    # 라디안 값을 각도로 변환
+    angle_deg = degrees(angle_rad)
+
+    return angle_deg
+
 class goal:
     def __init__(self):
         self.sprite = [load_image('resource/goaldae.png'),load_image('resource/ring.png')]
@@ -30,11 +52,12 @@ class ball:
             self.frame += 1
             self.frame = self.frame%6
             if (self.z > 80):
-                self.x += cos(self.dir) * self.speed * 15
-                self.y += sin(self.dir) * self.speed * 15
+                self.x += cos(radians(self.dir)) * self.speed * 15
+                self.y += sin(radians(self.dir)) * self.speed * 15
                 self.z -= self.speed*4
             else:
                 self.y -= sin(self.dir) * self.speed * 10
+                if (self.y < 0) : self.x =400; self.y = 100; self.z = 200;self.speed = 0
 
     def draw(self):
         self.sprite.clip_composite_draw(100*self.frame,0,100,100,radians(self.dir-90),'0',self.x ,self.y ,self.z,self.z)
@@ -86,8 +109,8 @@ class basket_ball_scene:
             if event.type == SDL_MOUSEMOTION:
                 pass
             if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
-                self.balls[0].dir = degrees(atan2((600-event.y)-sy,event.x - sx))
-                
+                self.balls[0].dir = degrees(atan2((600-event.y) -sy,event.x -sx))
+                print(self.balls[0].dir)
                 self.balls[0].speed = 3
                 pass
 
