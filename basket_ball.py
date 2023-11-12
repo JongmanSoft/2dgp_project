@@ -1,5 +1,5 @@
 from pico2d import *
-from math import radians,cos,sin
+from math import radians,cos,sin,atan2,degrees,sqrt
 time = 0
 class goal:
     def __init__(self):
@@ -23,7 +23,7 @@ class ball:
         self.y = 100
         self.z = 200
         self.dir = 90
-        self.speed = 3
+        self.speed = 0
         self.frame = 0
     def update(self):
         if (self.speed != 0):
@@ -76,15 +76,19 @@ class basket_ball_scene:
 
 
     def handle_events(self):
-
+        sx ,sy =0,0
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1 :
-                print(self.balls[0].z)
+                sx = event.x
+                sy = 600-event.y
                 pass
             if event.type == SDL_MOUSEMOTION:
                 pass
             if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
+                self.balls[0].dir = degrees(atan2((600-event.y)-sy,event.x - sx))
+                
+                self.balls[0].speed = 3
                 pass
 
 
