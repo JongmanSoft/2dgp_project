@@ -5,20 +5,15 @@ time = 0
 
 def calculate_angle(x1, y1, x2, y2):
 
-    vector1 = (x1, y1)
-    vector2 = (x2, y2)
+    x2 -= x1
+    y2 -= y1
 
-    dot_product = vector1[0] * vector2[0] + vector1[1] * vector2[1]
-    magnitude1 = (vector1[0] ** 2 + vector1[1] ** 2) ** 0.5
-    magnitude2 = (vector2[0] ** 2 + vector2[1] ** 2) ** 0.5
-
-    cos_theta = dot_product / (magnitude1 * magnitude2)
-    angle_rad = atan2(vector2[1], vector2[0]) - atan2(vector1[1], vector1[0])
+    angle_rad = atan2(y2, x2)
 
     if angle_rad < 0:
         angle_rad += 2 * 3.141592653589793
 
-    # 라디안 값을 각도로 변환
+
     angle_deg = degrees(angle_rad)
 
     return angle_deg
@@ -30,6 +25,8 @@ class goal:
         self.dir = 1
     def update(self):
         global time
+        time_speed = time
+        if (time > 50):time_speed = 50
         self.x += (1+time/10.0)*self.dir
         if (self.x>650):self.dir = -1
         if (self.x <150):self.dir = 1
@@ -56,7 +53,7 @@ class ball:
                 self.y += sin(radians(self.dir)) * self.speed * 15
                 self.z -= self.speed*4
             else:
-                self.y -= sin(self.dir) * self.speed * 10
+                self.y -= self.speed * 10
                 if (self.y < 0) : self.x =400; self.y = 100; self.z = 200;self.speed = 0
 
     def draw(self):
@@ -109,7 +106,7 @@ class basket_ball_scene:
             if event.type == SDL_MOUSEMOTION:
                 pass
             if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
-                self.balls[0].dir = degrees(atan2((600-event.y) -sy,event.x -sx))
+                self.balls[0].dir = 2* calculate_angle(sx,sy,event.x,600-event.y)
                 print(self.balls[0].dir)
                 self.balls[0].speed = 3
                 pass
