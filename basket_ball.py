@@ -54,7 +54,7 @@ class ball:
                 self.z -= self.speed*4
             else:
                 self.y -= self.speed * 10
-                if (self.y < 0) : self.x =400; self.y = 100; self.z = 200;self.speed = 0
+                if (self.y < 0) : self.x =400; self.y = 100; self.z = 200;self.speed = 0;self.dir = 90
 
     def draw(self):
         self.sprite.clip_composite_draw(100*self.frame,0,100,100,radians(self.dir-90),'0',self.x ,self.y ,self.z,self.z)
