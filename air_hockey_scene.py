@@ -77,9 +77,18 @@ class air_hockey_scene:
     def update(self):
         if (self.objects[1].x > self.objects[0].x-25 and self.objects[1].x < self.objects[0].x +25):
             if (self.objects[1].y > self.objects[0].y - 25 and self.objects[1].y < self.objects[0].y + 25):
+                dis =[self.objects[0].x - self.objects[1].x,self.objects[0].y - self.objects[1].y]
+                self.objects[0].x += dis[0]
+                self.objects[0].y += dis[1]
                 self.objects[0].xdir = self.objects[1].x -self.objects[1].sx
                 self.objects[0].ydir = self.objects[1].y - self.objects[1].sy
-
+        if (self.objects[2].x > self.objects[0].x-25 and self.objects[2].x < self.objects[0].x +25):
+            if (self.objects[2].y > self.objects[0].y - 25 and self.objects[2].y < self.objects[0].y + 25):
+                dis =[self.objects[0].x - self.objects[2].x,self.objects[0].y - self.objects[2].y]
+                self.objects[0].x += dis[0]
+                self.objects[0].y += dis[1]
+                self.objects[0].xdir = self.objects[2].x -self.objects[2].sx
+                self.objects[0].ydir = self.objects[2].y - self.objects[2].sy
         for o in self.objects:
             o.update()
         pass
