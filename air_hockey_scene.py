@@ -47,12 +47,15 @@ class you_handle:
         self.sprite = load_image('resource/you_handle.png')
         self.x = 400
         self.y = 500
+        self.sx = 400
+        self.sy = 500
         self.dir = 0
         self.speed = 0
 
     def update(self):
         pass
-
+    def move(self,px,py):
+        pass
     def draw(self):
         self.sprite.draw(self.x, self.y)
 
