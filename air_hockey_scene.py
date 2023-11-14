@@ -60,7 +60,7 @@ class you_handle:
         if (self.y < 300): self.y = 300
         pass
     def move(self,px,py):
-        self.t+= 0.02
+        self.t+= 0.1
         self.x = (1-self.t)*self.sx + self.t*px
 
         self.y = (1 - self.t) * self.sy + self.t * py
@@ -104,7 +104,7 @@ class air_hockey_scene:
                 self.objects[0].ydir = self.objects[2].y - self.objects[2].sy
 
         if (self.objects[0].y>300):self.objects[2].move(self.objects[0].x,self.objects[0].y)
-
+        else:self.objects[2].sx = self.objects[2].x ; self.objects[2].sy = self.objects[2].y
         for o in self.objects:
             o.update()
         pass
