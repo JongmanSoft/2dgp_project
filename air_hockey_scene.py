@@ -16,10 +16,10 @@ class puck:
     def update(self):
         self.x = self.x + (self.xdir//10)
         self.y = self.y + (self.ydir//10)
-        if (self.x > 600):self.xdir = -abs(self.xdir)
-        if (self.x < 200): self.xdir = abs(self.xdir)
-        if (self.y > 540 ):self.ydir = -abs(self.ydir)
-        if (self.y < 60): self.ydir = abs(self.ydir)
+        if (self.x > 600):self.x = 600;self.xdir = -abs(self.xdir)
+        if (self.x < 200):self.x = 200; self.xdir = abs(self.xdir)
+        if (self.y > 540 ):self.y = 540;self.ydir = -abs(self.ydir)
+        if (self.y < 60): self.y =60; self.ydir = abs(self.ydir)
 
 
 
@@ -54,7 +54,10 @@ class you_handle:
         self.t = 0
 
     def update(self):
-
+        if (self.x > 600):self.x = 600
+        if (self.x < 200): self.x = 200
+        if (self.y > 540 ):self.y = 540
+        if (self.y < 300): self.y = 300
         pass
     def move(self,px,py):
         self.t+= 0.02
