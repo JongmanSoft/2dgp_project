@@ -51,10 +51,17 @@ class you_handle:
         self.sy = 500
         self.dir = 0
         self.speed = 0
+        self.t = 0
 
     def update(self):
+
         pass
     def move(self,px,py):
+        self.t+= 0.02
+        self.x = (1-self.t)*self.sx + self.t*px
+
+        self.y = (1 - self.t) * self.sy + self.t * py
+        if (self.t>= 1): self.t = 0; self.sx = self.x;self.sy =self.y
         pass
     def draw(self):
         self.sprite.draw(self.x, self.y)
@@ -92,6 +99,9 @@ class air_hockey_scene:
                 self.objects[0].y += dis[1]
                 self.objects[0].xdir = self.objects[2].x -self.objects[2].sx
                 self.objects[0].ydir = self.objects[2].y - self.objects[2].sy
+
+        if (self.objects[0].y>300):self.objects[2].move(self.objects[0].x,self.objects[0].y)
+
         for o in self.objects:
             o.update()
         pass
