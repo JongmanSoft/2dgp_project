@@ -15,9 +15,9 @@ class my_ball:
         if not(self.speed == 0):
             self.frame += 1
             self.frame = self.frame%6
-            self.x += cos(radians(self.dir))*self.speed
+            if (self.x>70+self.y and self.x< 730-self.y):self.x += cos(radians(self.dir))*self.speed
             self.y += sin(radians(self.dir))*self.speed
-            if (self.y>320):self.x = 400;self.y = 100
+
         pass
 
 
@@ -48,8 +48,10 @@ class bowling_scene:
             if (self.balls[0].dir > 180): self.add = -1
             if (self.balls[0].dir < 0 ): self.add =  1
 
+
         for ball in self.balls:
             ball.update()
+            if (ball.y > 320): ball.x = 400;ball.y = 100;self.state = 0;ball.speed =0;ball.frame=0
         pass
 
     def draw(self):
@@ -68,7 +70,7 @@ class bowling_scene:
                 pass
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1:
                 self.state = 1
-                self.balls[0].speed = 3
+                self.balls[0].speed = 5
 
                 pass
 
