@@ -1,6 +1,25 @@
 from pico2d import *
 from math import sin,cos,radians
 
+def break_test(x1,y1,size,x2,y2,w,h):
+    # 첫 번째 객체의 경계를 계산
+    x1_min = x1 - size / 2
+    x1_max = x1 + size / 2
+    y1_min = y1 - size / 2
+    y1_max = y1 + size / 2
+
+    # 두 번째 객체의 경계를 계산
+    x2_min = x2 - w / 2
+    x2_max = x2 + w / 2
+    y2_min = y2 - h / 2
+    y2_max = y2 + h / 2
+
+    # 충돌 여부를 확인
+    if (x1_max >= x2_min and x1_min <= x2_max) and (y1_max >= y2_min and y1_min <= y2_max):
+        return True
+    else:
+        return False
+
 class my_ball:
     def __init__(self):
         self.sprite = load_image('resource/my_ball.png')
@@ -83,6 +102,11 @@ class bowling_scene:
         for ball in self.balls:
             ball.update()
             if (ball.y > 320): ball.x = 400;ball.y = 100;self.state = 0;ball.speed =0;ball.frame=0
+
+        for p in self.Pin.data:
+            if (break_test(self.balls[0].x,self.balls[0].y,self.balls[0].size,p.x,p.y,p.w,p.h)):
+                if (p.frame<2):p.frame +=1
+
         pass
 
     def draw(self):
