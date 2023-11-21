@@ -39,8 +39,8 @@ class pin:
         self.x =add+ 280+self.size*50 + (n - (7-self.size)) *40
         self.y = (4-self.size)*20 + 250
         self.frame = 0
-        self.w =
-        self.h = 
+        self.w = ((self.size+5)*6)/2
+        self.h = ((self.size+5)*13)/2
 class pins:
     def __init__(self):
         self.sprite = load_image('resource/pin.png')
