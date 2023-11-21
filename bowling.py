@@ -15,10 +15,17 @@ class my_ball:
         if not(self.speed == 0):
             self.frame += 1
             self.frame = self.frame%6
-            if (self.x>70+self.y and self.x< 730-self.y):self.x += cos(radians(self.dir))*self.speed
+            if (self.x>self.y and self.x< 800-self.y):self.x += cos(radians(self.dir))*self.speed
+            elif (self.x >400):self.x -= self.y/300 * self.speed
+            else : self.x +=self.y/300 * self.speed
+
             self.y += sin(radians(self.dir))*self.speed
 
         pass
+
+class pins:
+    def __init__(self):
+        self.sprite = load_image('resource/pin.png')
 
 
 class bowling_scene:
@@ -45,8 +52,8 @@ class bowling_scene:
     def update(self):
         if (self.state==0):
             self.balls[0].dir += 10* self.add
-            if (self.balls[0].dir > 180): self.add = -1
-            if (self.balls[0].dir < 0 ): self.add =  1
+            if (self.balls[0].dir > 150): self.add = -1
+            if (self.balls[0].dir < 30 ): self.add =  1
 
 
         for ball in self.balls:
