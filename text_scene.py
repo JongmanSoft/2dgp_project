@@ -3,7 +3,7 @@ from pico2d import *
 import server
 import random
 
-text_update= [0,0,0]
+text_update= [0,0,0,0,0,0,0,0,0,0,0]
 
 class text_scene:
     run = 1
@@ -91,6 +91,24 @@ class text_scene:
                 self.text.append((0, "주인공", "끝이 아니라니...", 1))
                 self.text.append((0, "주인공", "(에어하키에서는 반드시 이겨주겠어!)", 1))
             text_update[2] = 1
+        if (server.text_round ==3  and text_update[3] == 0):
+            if (server.a_you_score >= server.a_my_score):
+                self.text.append((8, "박아현", "개못한다 진짜...", 0))
+                self.text.append((0, "주인공", "(흑흑...왜이렇게 어렵지?)", 1))
+                self.text.append((7, "박아현", "좀 실망인데...", 0))
+                self.text.append((0, "주인공", "아직 안끝났어...!", 1))
+                self.text.append((4, "박아현", "옴멈머? 맞앙ㅋ 이제 농구만 하면된다능ㅋ", 0))
+                self.text.append((0, "주인공", "이제 마지막 승부야...", 1))
+                self.text.append((0, "주인공", "반드시 이길거야!", 1))
+            else :
+                self.text.append((6, "박아현", "ㅋㅋㅋㅋ아니 어케 이겼노ㅋㅋ 핵씀?", 0))
+                self.text.append((0, "주인공", "어케알았지?", 1))
+                self.text.append((3, "박아현", "후...이제 마지막 승부만이 남았어", 0))
+                self.text.append((0, "주인공", "그래...이번엔 뭐야?", 1))
+                self.text.append((8, "박아현", "농구.", 0))
+                self.text.append((0, "주인공", "윽,,,농구? 내가 할수있을까...", 1))
+                self.text.append((0, "주인공", "아냐, 할수있을까가 아니지. 반드시 이길거야!", 1))
+            text_update[3] = 1
 
         pass
 

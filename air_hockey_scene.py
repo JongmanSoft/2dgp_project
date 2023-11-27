@@ -131,7 +131,7 @@ class air_hockey_scene:
         for o in self.objects:
             o.update()
 
-        if (server.a_you_score >= 10 or server.a_my_score<= 10):
+        if (server.a_you_score >= 10 or server.a_my_score >= 10):
             self.run = 0
         pass
 
@@ -168,8 +168,6 @@ class air_hockey_scene:
                 if (event.y > 550):self.objects[1].y = 50
             if event.type == SDL_MOUSEBUTTONUP and event.button == 1:
                 self.click = 0
-            if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-                self.run = 0
             if event.type ==SDL_KEYDOWN and event.key == SDLK_UP:
                 server.a_my_score = 10 ; server.a_you_score = 0
                 self.run = 0
