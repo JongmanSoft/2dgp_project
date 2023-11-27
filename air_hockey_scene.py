@@ -21,6 +21,9 @@ class puck:
         if (self.y > 540 ):self.y = 540;self.ydir = -abs(self.ydir)
         if (self.y < 60): self.y =60; self.ydir = abs(self.ydir)
 
+        if (self.x >= 335 and self.x<=455 and self.y>520): self.x = 400; self.y = 300; server.a_my_score +=1
+        if (self.x >= 335 and self.x <= 455 and self.y < 80): self.x = 400; self.y = 300; server.a_you_score += 1
+
 
 
 class my_handle:
@@ -49,6 +52,8 @@ class you_handle:
         self.y = 500
         self.sx = 400
         self.sy = 500
+        self.cx = 0
+        self.cy = 0
         self.dir = 0
         self.speed = 0
         self.t = 0
@@ -67,11 +72,11 @@ class you_handle:
             self.t+= 0.1
             self.x = (1-self.t)*self.sx + self.t*px
             self.y = (1 - self.t) * self.sy + self.t * py
-            if (self.t >= 1 or (px -25 < self.x and px +25 > self.x and py -25 <self.y and py+25>self.y)): self.t = 0; self.attack =1
+            if (self.t >= 1 or (px -25 < self.x and px +25 > self.x and py -25 <self.y and py+25>self.y)): self.cx = self.x ; self.cy = self.y ;self.t = 0; self.attack =1
         if (self.attack == 1):
             self.t += 0.1
-            self.x = (1 - self.t) * self.x + self.t * 400
-            self.y = (1 - self.t) * self.y + self.t * 500
+            self.x = (1 - self.t) * self.cx + self.t * 400
+            self.y = (1 - self.t) * self.cy + self.t * 500
             if (self.t >= 1): self.t = 0; self.attack = 0
             pass
 
@@ -83,10 +88,13 @@ class air_hockey_scene:
     animation =0
     run = 1
     click = 0
+
     def __init__(self):
         self.bgm = load_music('resource/battle.mp3')
         self.back =[load_image('resource/draw_back.png') ,load_image('resource/win_back.png'),load_image('resource/lose_back.png')]
         self.objects = [puck(), my_handle(), you_handle()]
+        self.font = load_font('resource/떡볶이체.ttf', 50)
+        self.font = load_font('resource/떡볶이체.ttf', 54)
 
 
     def enter(self):
@@ -98,18 +106,18 @@ class air_hockey_scene:
 
 
     def update(self):
-        if (self.objects[0].y>300 ):self.objects[2].move(self.objects[0].x ,self.objects[0].y)
+        if (self.objects[0].y>300 and self.objects[0].y<450 ):self.objects[2].move(self.objects[0].x ,self.objects[0].y)
         else: self.objects[2].attack=0
 
-        if (self.objects[1].x >= self.objects[0].x-25 and self.objects[1].x <= self.objects[0].x +25):
-            if (self.objects[1].y >= self.objects[0].y - 25 and self.objects[1].y <= self.objects[0].y + 25):
+        if (self.objects[1].x >= self.objects[0].x-30 and self.objects[1].x <= self.objects[0].x +30 ):
+            if (self.objects[1].y >= self.objects[0].y -30 and self.objects[1].y <= self.objects[0].y + 30):
                 dis =[self.objects[0].x - self.objects[1].x,self.objects[0].y - self.objects[1].y]
                 self.objects[0].x += dis[0]
                 self.objects[0].y += dis[1]
                 self.objects[0].xdir = self.objects[1].x -self.objects[1].sx
                 self.objects[0].ydir = self.objects[1].y - self.objects[1].sy
-        if (self.objects[2].x >= self.objects[0].x-25 and self.objects[2].x <= self.objects[0].x +25):
-            if (self.objects[2].y >= self.objects[0].y - 25 and self.objects[2].y <= self.objects[0].y + 25):
+        if (self.objects[2].x >= self.objects[0].x-30 and self.objects[2].x <= self.objects[0].x +30):
+            if (self.objects[2].y >= self.objects[0].y -30 and self.objects[2].y <= self.objects[0].y +30):
 
                 dis =[self.objects[0].x - self.objects[2].x,self.objects[0].y - self.objects[2].y]
                 print(f"{dis}")
@@ -125,9 +133,22 @@ class air_hockey_scene:
         pass
 
     def draw(self):
-        self.back[0].draw(400,300)
+
+        if (server.a_my_score == server.a_you_score):self.back[0].draw(400,300)
+        elif(server.a_my_score > server.a_you_score):self.back[1].draw(400,300)
+        else :self.back[2].draw(400, 300)
         for o in self.objects:
             o.draw()
+        self.font.draw(102, 302, str(server.a_you_score), (255, 255, 255))
+        self.font.draw(98, 302, str(server.a_you_score), (255, 255, 255))
+        self.font.draw(102, 298, str(server.a_you_score), (255, 255, 255))
+        self.font.draw(98, 298, str(server.a_you_score), (255,255,255))
+        self.font.draw(100, 300, str(server.a_you_score), (233, 16, 81))
+        self.font.draw(702, 298, str(server.a_my_score), (255, 255, 255))
+        self.font.draw(698, 298, str(server.a_my_score), (255, 255, 255))
+        self.font.draw(702, 302, str(server.a_my_score), (255, 255, 255))
+        self.font.draw(698, 302, str(server.a_my_score), (255, 255, 255))
+        self.font.draw(700, 300, str(server.a_my_score), (26, 111, 168))
 
 
     def handle_events(self):
