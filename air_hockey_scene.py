@@ -130,6 +130,9 @@ class air_hockey_scene:
 
         for o in self.objects:
             o.update()
+
+        if (server.a_you_score >= 10 or server.a_my_score<= 10):
+            self.run = 0
         pass
 
     def draw(self):
@@ -155,10 +158,8 @@ class air_hockey_scene:
 
         events = get_events()
         for event in events:
-            if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1 :
 
-                self.click = 1
-            if event.type == SDL_MOUSEMOTION and self.click == 1:
+            if event.type == SDL_MOUSEMOTION:
                 self.objects[1].x = event.x
                 if (event.x < 190): self.objects[1].x = 190
                 if (event.x> 610):self.objects[1].x = 610
@@ -168,6 +169,12 @@ class air_hockey_scene:
             if event.type == SDL_MOUSEBUTTONUP and event.button == 1:
                 self.click = 0
             if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+                self.run = 0
+            if event.type ==SDL_KEYDOWN and event.key == SDLK_UP:
+                server.a_my_score = 10 ; server.a_you_score = 0
+                self.run = 0
+            if event.type ==SDL_KEYDOWN and event.key == SDLK_DOWN:
+                server.a_my_score = 0 ; server.a_you_score = 10
                 self.run = 0
 
 
