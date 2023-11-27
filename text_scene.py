@@ -3,7 +3,7 @@ from pico2d import *
 import server
 import random
 
-
+text_update= [0,0,0]
 
 class text_scene:
     run = 1
@@ -56,6 +56,24 @@ class text_scene:
             self.text.append((0, "주인공", "(뭐야...별거없네)", 1))
             self.text.append((0, "주인공", "(기다려라 박아현! 널 내여자로 만들겠어!)", 1))
         if (round >= 2):
+            self.text.append((0, "", "볼링이 끝났다...", 1))
+
+
+
+
+    def enter(self):
+        self.bgm.repeat_play()
+
+
+    def exit(self):
+        server.text_round+=1
+        self.bgm.stop()
+        self.run =0
+
+
+
+    def update(self):
+        if (server.text_round ==2 and text_update[2] == 0):
             if (server.bow_goal_score >= server.bow_my_score):
                 self.text.append((2, "박아현", "ㅋㅋㅋㅋ내기록도 못넘으면 어떡하노", 0))
                 self.text.append((0, "주인공", "끙...어떡하지", 1))
@@ -72,21 +90,7 @@ class text_scene:
                 self.text.append((7, "박아현", "진정한 상남자는 에어하키를 할때 드러나지 따라와라", 0))
                 self.text.append((0, "주인공", "끝이 아니라니...", 1))
                 self.text.append((0, "주인공", "(에어하키에서는 반드시 이겨주겠어!)", 1))
-
-
-
-    def enter(self):
-        self.bgm.repeat_play()
-
-
-    def exit(self):
-        server.text_round+=1
-        self.bgm.stop()
-        self.run =0
-
-
-
-    def update(self):
+            text_update[2] = 1
 
         pass
 
