@@ -52,7 +52,26 @@ class text_scene:
             self.text.append((0, "주인공", "넌 몇점인데?", 1))
             server.bow_goal_score = random.randint(50,80)
             self.text.append((8, "박아현", f"{server.bow_goal_score}점인데 ㄱㄴ?",0))
-            self.text.append((0, "주인공", "뭐야...", 1))
+            self.text.append((0, "주인공", "(뭐야...별거없네)", 1))
+            self.text.append((0, "주인공", "(기다려라 박아현! 널 내여자로 만들겠어!)", 1))
+        if (round >= 2):
+            if (server.bow_goal_score >= server.bow_my_score):
+                self.text.append((2, "박아현", "ㅋㅋㅋㅋ내기록도 못넘으면 어떡하노", 0))
+                self.text.append((0, "주인공", "끙...어떡하지", 1))
+                self.text.append((3, "박아현", "ㄱㅊ 두판 더할거임", 0))
+                self.text.append((0, "주인공", "두..두판을 더?!", 1))
+                self.text.append((4, "박아현", "볼링말고ㅋㅋㅋ 다음은 에어하키다 따라와라...", 0))
+                self.text.append((0, "주인공", "다...다행이다 끝이아니구나!", 1))
+                self.text.append((0, "주인공", "(에어하키에서는 반드시 이겨주겠어!)", 1))
+            else :
+                self.text.append((5, "박아현", "이런젠장!! 내가 지다니!!!", 0))
+                self.text.append((0, "주인공", "휴...겨우이겼어", 1))
+                self.text.append((3, "박아현", "ㄱㅊ 아직끝아님", 0))
+                self.text.append((0, "주인공", "뭐...뭐라고!!!", 1))
+                self.text.append((7, "박아현", "진정한 상남자는 에어하키를 할때 드러나지 따라와라", 0))
+                self.text.append((0, "주인공", "끝이 아니라니...", 1))
+                self.text.append((0, "주인공", "(에어하키에서는 반드시 이겨주겠어!)", 1))
+
 
 
     def enter(self):

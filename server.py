@@ -1,10 +1,10 @@
 
 text_round = 0
-bow_my_score = None
-bow_goal_score = None
+bow_my_score = 0
+bow_goal_score = 0
 
-a_my_score= None
-a_you_score = None
+a_my_score= 0
+a_you_score = 0
 
-bask_my_score = None
-bask_goal_score =None
+bask_my_score = 0
+bask_goal_score =0

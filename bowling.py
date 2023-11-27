@@ -79,6 +79,7 @@ class bowling_scene:
     turn = 0
     add = 1
     def __init__(self):
+        self.bgm = load_music('resource/battle.mp3')
         self.back = load_image('resource/bowling_back.png')
         self.pin = load_image('resource/pin.png')
         self.arrow = load_image('resource/ball_dir.png')
@@ -88,9 +89,11 @@ class bowling_scene:
 
 
     def enter(self):
+        self.bgm.repeat_play()
         pass
 
     def exit(self):
+        self.bgm.stop()
         pass
 
 
