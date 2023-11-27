@@ -1,5 +1,5 @@
 from pico2d import *
-
+import server
 
 class puck:
     def __init__(self):
@@ -54,6 +54,7 @@ class you_handle:
         self.t = 0
         self.attack = 0
 
+
     def update(self):
         if (self.x > 600):self.x = 600
         if (self.x < 200): self.x = 200
@@ -61,12 +62,19 @@ class you_handle:
         if (self.y < 300): self.y = 300
         pass
     def move(self,px,py):
-        print(self.attack)
-        self.t+= 0.1
-        self.x = (1-self.t)*self.sx + self.t*px
 
-        self.y = (1 - self.t) * self.sy + self.t * py
-        if (self.t >= 1 or (px -25 < self.x and px +25 > self.x and py -25 <self.y and py+25>self.y)): self.t = 0; self.sx = self.x;self.sy =self.y;self.attack =1
+        if (self.attack == 0):
+            self.t+= 0.1
+            self.x = (1-self.t)*self.sx + self.t*px
+            self.y = (1 - self.t) * self.sy + self.t * py
+            if (self.t >= 1 or (px -25 < self.x and px +25 > self.x and py -25 <self.y and py+25>self.y)): self.t = 0; self.attack =1
+        if (self.attack == 1):
+            self.t += 0.1
+            self.x = (1 - self.t) * self.x + self.t * 400
+            self.y = (1 - self.t) * self.y + self.t * 500
+            if (self.t >= 1): self.t = 0; self.attack = 0
+            pass
+
         pass
     def draw(self):
         self.sprite.draw(self.x, self.y)
@@ -90,22 +98,26 @@ class air_hockey_scene:
 
 
     def update(self):
-        if (self.objects[0].y>300 and self.objects[2].attack == 0):self.objects[2].move(self.objects[0].x,self.objects[0].y)
-        else:self.objects[2].sx = self.objects[2].x ; self.objects[2].sy = self.objects[2].y;self.objects[2].attack=0
-        if (self.objects[1].x > self.objects[0].x-25 and self.objects[1].x < self.objects[0].x +25):
-            if (self.objects[1].y > self.objects[0].y - 25 and self.objects[1].y < self.objects[0].y + 25):
+        if (self.objects[0].y>300 ):self.objects[2].move(self.objects[0].x ,self.objects[0].y)
+        else: self.objects[2].attack=0
+
+        if (self.objects[1].x >= self.objects[0].x-25 and self.objects[1].x <= self.objects[0].x +25):
+            if (self.objects[1].y >= self.objects[0].y - 25 and self.objects[1].y <= self.objects[0].y + 25):
                 dis =[self.objects[0].x - self.objects[1].x,self.objects[0].y - self.objects[1].y]
                 self.objects[0].x += dis[0]
                 self.objects[0].y += dis[1]
                 self.objects[0].xdir = self.objects[1].x -self.objects[1].sx
                 self.objects[0].ydir = self.objects[1].y - self.objects[1].sy
-        if (self.objects[2].x > self.objects[0].x-25 and self.objects[2].x < self.objects[0].x +25):
-            if (self.objects[2].y > self.objects[0].y - 25 and self.objects[2].y < self.objects[0].y + 25):
+        if (self.objects[2].x >= self.objects[0].x-25 and self.objects[2].x <= self.objects[0].x +25):
+            if (self.objects[2].y >= self.objects[0].y - 25 and self.objects[2].y <= self.objects[0].y + 25):
+
                 dis =[self.objects[0].x - self.objects[2].x,self.objects[0].y - self.objects[2].y]
+                print(f"{dis}")
                 self.objects[0].x += dis[0]
                 self.objects[0].y += dis[1]
-                self.objects[0].xdir = self.objects[2].x -self.objects[2].sx
-                self.objects[0].ydir = self.objects[2].y - self.objects[2].sy
+                self.objects[0].xdir = (self.objects[2].x - self.objects[2].sx)*2
+                self.objects[0].ydir = (self.objects[2].y - self.objects[2].sy)*2
+
 
 
         for o in self.objects:
