@@ -1,5 +1,6 @@
 from pico2d import *
 from math import sin,cos,radians
+import server
 
 turn = 0
 def break_test(x1,y1,size,x2,y2,w,h):
@@ -103,6 +104,9 @@ class bowling_scene:
 
 
     def update(self):
+        global turn
+
+
         if (self.state==0):
             self.balls[0].dir += 10* self.add
             if (self.balls[0].dir > 150): self.add = -1
@@ -127,13 +131,20 @@ class bowling_scene:
                             p.frame =0
                             turn_score += 1
                         else: p.frame = 0
-                    self.score[turn//2][turn%2] = turn_score
+                self.score[turn//2][turn%2] = turn_score
                 turn += 1
 
 
         for p in self.Pin.data:
             if (break_test(self.balls[0].x,self.balls[0].y,self.balls[0].size,p.x,p.y,p.w,p.h)):
                 if (p.frame<2):p.frame +=1
+
+        if (turn ==20):
+            sum = 0
+            for j in range(0, 10):
+                sum += self.score[j][0] + self.score[j][1]
+            server.bow_my_score =sum
+            self.run = 0
 
         pass
 
@@ -145,8 +156,17 @@ class bowling_scene:
         if (self.state == 0):self.arrow.clip_composite_draw(0,0,100,290,radians(self.balls[0].dir-90),'h',400,75,100,290)
         self.board.draw(400,540)
         for i in range(0,10):
+            if (i>turn//2):break
             for j in range (0,2):
-                self.font.draw(i*20+10*j , 520, (255,255,255))
+                self.font.draw(10+40*((2*i)+j), 540,str(self.score[i][j]), (255,255,255))
+
+        for i in range (0,10):
+            if (i> turn//2):break
+            sum = 0
+            for j in range(0,i+1):
+                sum += self.score[j][0]+ self.score[j][1]
+            self.font.draw(20 + 80* i, 500, str(sum), (255, 255, 255))
+
         pass
 
 
@@ -154,6 +174,12 @@ class bowling_scene:
 
         events = get_events()
         for event in events:
+            if event.type ==SDL_KEYDOWN and event.key == SDLK_UP:
+                server.bow_my_score = 100
+                self.run = 0
+            if event.type ==SDL_KEYDOWN and event.key == SDLK_DOWN:
+                server.bow_my_score = 0
+                self.run = 0
             if event.type == SDL_MOUSEMOTION:
                 pass
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1:

@@ -4,6 +4,7 @@ import server
 import random
 
 
+
 class text_scene:
     run = 1
     def __init__(self,round =0):
@@ -14,7 +15,7 @@ class text_scene:
         self.back_image = []
         self.girl_image = []
         self.text = []
-        for i in range (0, 2):
+        for i in range (0, 3):
             file_name = "back" + str(i) + ".png"
             self.back_image.append(load_image("resource/"+file_name))
         for i in range (0,9):
@@ -41,7 +42,7 @@ class text_scene:
             self.text.append((3, "박아현", "그니까 일단 나한테 볼링부터 이기셈 ㅋㅋ", 0))
             self.text.append((0, "주인공", "아현이의 이상형이 이렇게 독특할 줄이야... ", 1))
             self.text.append((0, "주인공", "하지만 이겨야 사귈수 있겠지? 반드시 이겨주겠어!", 1))
-        if (round >= 1):
+        if (round == 1):
             self.text.append((0, "주인공", "여자랑 볼링장을 와보다니...", 1))
             self.text.append((8, "박아현", "뭘 멍때리고 있노?",0))
             self.text.append((0, "주인공", "응...? 아현아 넌 돈 안내?", 1))
@@ -106,7 +107,7 @@ class text_scene:
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
-                if (event.x>=660and event.x<=800 and (600-event.y)>=495 and (600-event.y)<=585):self.run= 0
+                if (event.x>=660 and event.x<=800 and (600-event.y)>=495 and (600-event.y)<=585):self.run= 0
                 else:
                     self.text.pop(0)
                     if len(self.text) ==0 :
