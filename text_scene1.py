@@ -1,5 +1,5 @@
 from pico2d import *
-
+import server
 
 
 class text_scene:
@@ -45,6 +45,7 @@ class text_scene:
 
 
     def exit(self):
+
         self.bgm.stop()
         self.run =0
 

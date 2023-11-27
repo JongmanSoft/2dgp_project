@@ -52,7 +52,7 @@ class pin:
         else : self.size = 1
         add = 0
         if (n ==0): add = 30
-        if (n != 0and n<3): add = 60
+        if (n != 0 and n<3): add = 60
         if (n >2 and n < 6): add = 50
 
         self.x =add+ 280+self.size*50 + (n - (7-self.size)) *40
@@ -70,12 +70,14 @@ class pins:
             self.sprite.clip_composite_draw(self.data[p].frame*30,0,30,65,0,'h',self.data[p].x,self.data[p].y,(self.data[p].size+5)*6,(self.data[p].size+5)*13)
 
 
+
 class bowling_scene:
     animation =0
     run = 1
     state = 0
+    score = [[0, 0] for _ in range(10)]
+    turn = 0
     add = 1
-
     def __init__(self):
         self.back = load_image('resource/bowling_back.png')
         self.pin = load_image('resource/pin.png')
@@ -126,7 +128,7 @@ class bowling_scene:
                 pass
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1:
                 self.state = 1
-                self.balls[0].speed = 5
+                self.balls[0].speed = 8
 
                 pass
 
