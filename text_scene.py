@@ -10,7 +10,7 @@ class text_scene:
         self.bgm =load_music('resource/talk.mp3')
         self.click = load_music('resource/click.wav')
         self.font = load_font('resource/떡볶이체.ttf',25)
-
+        self.skip = load_image('resource/skip.png')
         self.back_image = []
         self.girl_image = []
         self.text = []
@@ -80,15 +80,18 @@ class text_scene:
             self.window.draw(400,100,760,160)
             self.font.draw(70,140,self.text[0][1],(182,23,76))
             self.font.draw(70, 100, self.text[0][2], (0, 23, 76))
+            self.skip.draw(710, 530)
 
 
     def handle_events(self):
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
-                self.text.pop(0)
-                if len(self.text) ==0 :
-                    self.run = 0
+                if (event.x>=660and event.x<=800 and (600-event.y)>=495 and (600-event.y)<=585):self.run= 0
+                else:
+                    self.text.pop(0)
+                    if len(self.text) ==0 :
+                        self.run = 0
 
     def running(self): return self.run
 
