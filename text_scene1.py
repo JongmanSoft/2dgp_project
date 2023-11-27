@@ -19,6 +19,7 @@ class text_scene:
             file_name = "a" + str(i) + ".png"
             self.girl_image.append(load_image("resource/"+file_name))
         self.window = load_image("resource/"+"text_window.png")
+
         self.text.append((0,"주인공","후... 떨리는걸?",1))
         self.text.append((0, "주인공", "오늘은 내가 좋아하는 아현이에게 고백하는날이야.", 1))
         self.text.append((0, "주인공", "앗...아현이다!", 1))
@@ -45,7 +46,7 @@ class text_scene:
 
 
     def exit(self):
-
+        server.text_round+=1
         self.bgm.stop()
         self.run =0
 
