@@ -1,6 +1,7 @@
 from pico2d import *
 from math import sin,cos,radians
 
+turn = 0
 def break_test(x1,y1,size,x2,y2,w,h):
     # 첫 번째 객체의 경계를 계산
     x1_min = x1 - size / 2
@@ -21,6 +22,7 @@ def break_test(x1,y1,size,x2,y2,w,h):
         return False
 
 class my_ball:
+    global turn
     def __init__(self):
         self.sprite = load_image('resource/my_ball.png')
         self.x = 400
@@ -72,13 +74,16 @@ class pins:
 
 
 class bowling_scene:
+    global turn
     animation =0
     run = 1
     state = 0
     score = [[0, 0] for _ in range(10)]
-    turn = 0
+
     add = 1
     def __init__(self):
+        self.font = load_font('resource/떡볶이체.ttf', 25)
+        self.board = load_image('resource/score_borad.png')
         self.bgm = load_music('resource/battle.mp3')
         self.back = load_image('resource/bowling_back.png')
         self.pin = load_image('resource/pin.png')
@@ -105,8 +110,26 @@ class bowling_scene:
 
 
         for ball in self.balls:
+            global turn
             ball.update()
-            if (ball.y > 320): ball.x = 400;ball.y = 100;self.state = 0;ball.speed =0;ball.frame=0
+            if (ball.y > 320):
+                ball.x = 400;ball.y = 100;self.state = 0;ball.speed =0;ball.frame=0
+                turn_score = 0
+                if (turn % 2 == 0):
+                    for p in self.Pin.data:
+                        if (p.frame == 2):
+                            p.frame =3
+                            turn_score += 1
+                        if (p.frame == 1): p.frame = 0
+                else :
+                    for p in self.Pin.data:
+                        if (p.frame == 2):
+                            p.frame =0
+                            turn_score += 1
+                        else: p.frame = 0
+                    self.score[turn//2][turn%2] = turn_score
+                turn += 1
+
 
         for p in self.Pin.data:
             if (break_test(self.balls[0].x,self.balls[0].y,self.balls[0].size,p.x,p.y,p.w,p.h)):
@@ -120,6 +143,10 @@ class bowling_scene:
         for ball in self.balls:
             ball.draw()
         if (self.state == 0):self.arrow.clip_composite_draw(0,0,100,290,radians(self.balls[0].dir-90),'h',400,75,100,290)
+        self.board.draw(400,540)
+        for i in range(0,10):
+            for j in range (0,2):
+                self.font.draw(i*20+10*j , 520, (255,255,255))
         pass
 
 
