@@ -9,7 +9,8 @@ class text_scene:
     run = 1
     def __init__(self,round =0):
         self.bgm =load_music('resource/talk.mp3')
-        self.click = load_music('resource/click.wav')
+        self.click = load_wav('resource/click.wav')
+        self.click.set_volume(5)
         self.font = load_font('resource/떡볶이체.ttf',25)
         self.skip = load_image('resource/skip.png')
         self.back_image = []
@@ -56,7 +57,7 @@ class text_scene:
             self.text.append((0, "주인공", "(뭐야...별거없네)", 1))
             self.text.append((0, "주인공", "(기다려라 박아현! 널 내여자로 만들겠어!)", 1))
         if (round >= 2):
-            self.text.append((0, "", "볼링이 끝났다...", 1))
+            self.text.append((0, "", "게임이 끝났다...", 1))
 
 
 
@@ -129,6 +130,7 @@ class text_scene:
         events = get_events()
         for event in events:
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == 1:
+                self.click.play()
                 if (event.x>=660 and event.x<=800 and (600-event.y)>=495 and (600-event.y)<=585):self.run= 0
                 else:
                     self.text.pop(0)

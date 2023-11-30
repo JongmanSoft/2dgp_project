@@ -86,6 +86,9 @@ class bowling_scene:
         self.font = load_font('resource/떡볶이체.ttf', 25)
         self.board = load_image('resource/score_borad.png')
         self.bgm = load_music('resource/battle.mp3')
+        self.bgm.set_volume(32)
+        self.wavss = [load_wav(('resource/fall.wav')), load_wav('resource/rolling.wav')]
+        self.wavss[0].set_volume(64);self.wavss[1].set_volume(64)
         self.back = load_image('resource/bowling_back.png')
         self.pin = load_image('resource/pin.png')
         self.arrow = load_image('resource/ball_dir.png')
@@ -137,7 +140,7 @@ class bowling_scene:
 
         for p in self.Pin.data:
             if (break_test(self.balls[0].x,self.balls[0].y,self.balls[0].size,p.x,p.y,p.w,p.h)):
-                if (p.frame<2):p.frame +=1
+                if (p.frame<2):p.frame +=1 ;self.wavss[0].play()
 
         if (turn ==20):
             sum = 0
@@ -183,6 +186,7 @@ class bowling_scene:
             if event.type == SDL_MOUSEMOTION:
                 pass
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1:
+                self.wavss[1].play()
                 self.state = 1
                 self.balls[0].speed = 8
 
