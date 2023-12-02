@@ -131,15 +131,33 @@ class text_scene:
             if (server.win>=2):
                 self.text.append((0, "주인공", "내...내가 이겼다!!!", 1))
                 self.text.append((0, "박아현", "....", 0))
+                self.text.append((0, "주인공", "아현아 무슨 생각으로 이런 내기를 한건진 모르겠지만...", 1))
+                self.text.append((0, "주인공", "지금 나 제대로 고백할게!", 1))
+                self.text.append((0, "주인공", "나 너 진짜 많이 좋아해...너가 어떤말을 하더라도 너무 귀여워!", 1))
+                self.text.append((0, "주인공", "나랑 사귀자... 진짜 잘해줄게!", 1))
+                self.text.append((4, "박아현", "흥...바보", 0))
+                self.text.append((2, "박아현", "내가 더 좋아하거든...", 0))
+                self.text.append((0, "주인공", "에엣?! (두근)", 1))
+                self.text.append((2, "박아현", "스포츠게임을 하자한것도... 너와 더 오래있고싶어서 그런거였어", 0))
+                self.text.append((2, "박아현", "사랑해 인공아! 나! 너 여자친구가 될래!", 0))
+                self.text.append((0, "주인공", "아이시떼루 아현쨩!", 1))
+                self.text.append((0, "", "해피엔딩~ 즐겨주셔서 감사합니다 이제나가세요 ㅅㄱ",1))
 
+            else :
+                self.text.append((0, "주인공", "치욕스럽다... 완전히 졌어", 1))
+                self.text.append((0, "박아현", "....", 0))
+                self.text.append((0, "주인공", "아현아 정말 스포츠게임이 중요했어...?", 1))
+                self.text.append((0, "주인공", "나는 안되는거야...?", 1))
+                self.text.append((0, "주인공", "나 너 진짜 많이 좋아한단말야...", 1))
+                self.text.append((0, "주인공", "스포츠게임은 나중에 더연습할게...그러니까..제발..응?", 1))
+                self.text.append((8, "박아현", "응안돼", 0))
+                self.text.append((8, "박아현", "뭔 나도 못이기냐 실망이노", 0))
+                self.text.append((0, "주인공", "흑흑...", 1))
+                self.text.append((8, "박아현", "우리 걍 좋은 친구로 지내자 ㅅㄱ", 0))
+                self.text.append((0, "주인공", "제기랄...제기랄!!!", 1))
+                self.text.append((0, "", "배드엔딩~ 즐겨주셔서 감사합니다 이제나가세요 ㅅㄱ", 1))
 
-
-
-
-            else:
-                self.text.append((0, "주인공", "지고 말았어...", 1))
-
-            text_update[3] = 1
+            text_update[4] = 1
 
         pass
 
