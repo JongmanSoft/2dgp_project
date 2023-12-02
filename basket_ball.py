@@ -27,7 +27,7 @@ class goal:
     def update(self):
         global time
         time_speed = time
-        if (time > 5):time_speed = 5
+        if (time > 3):time_speed = 3
         self.x += (1+time/10.0)*self.dir
         if (self.x>650):self.dir = -1
         if (self.x <150):self.dir = 1
@@ -69,12 +69,12 @@ class basket_ball_scene:
         self.back = load_image('resource/basketball_background.png')
         self.bgm = load_music('resource/battle.mp3')
         self.wavs = [load_wav('resource/shoot.wav'),load_wav('resource/goal.mp3')]
-        self.font = load_font('resource/떡볶이체.ttf',32)
+        self.font = load_font('resource/떡볶이체.ttf', 25)
 
         self.goal_dae = goal()
         self.balls= [ball()]
 
-        
+        self.start =get_time()
         pass
 
 
@@ -97,12 +97,17 @@ class basket_ball_scene:
         pass
 
     def draw(self):
+
         self.back.draw(400,300)
+
         self.goal_dae.draw()
         if (self.balls[0].z>80):self.goal_dae.ring_draw()
         for b in self.balls:
             b.draw()
         if (self.balls[0].z <= 80): self.goal_dae.ring_draw()
+
+        self.font.draw(70, 560, f"time : {int(67 - (get_time() - self.start))}", (0, 0, 0))
+        self.font.draw(70, 520, f"score : {server.bask_goal_score}", (0, 0, 0))
         pass
 
 
@@ -119,7 +124,6 @@ class basket_ball_scene:
             if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
                 self.wavs[0].play()
                 self.balls[0].dir = 2* calculate_angle(sx,sy,event.x,600-event.y)
-                print(self.balls[0].dir)
                 self.balls[0].speed = 3
                 pass
 
