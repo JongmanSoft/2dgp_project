@@ -143,7 +143,7 @@ class air_hockey_scene:
         for o in self.objects:
             o.update()
 
-        if (server.a_you_score >= 10 or server.a_my_score >= 10):
+        if (server.a_you_score >= 5 or server.a_my_score >= 5):
             self.run = 0
         pass
 
@@ -184,7 +184,7 @@ class air_hockey_scene:
                 server.a_my_score = 10 ; server.a_you_score = 0
                 self.run = 0
             if event.type ==SDL_KEYDOWN and event.key == SDLK_DOWN:
-                server.a_my_score = 0 ; server.a_you_score = 10
+                server.a_my_score = 0 ; server.a_you_score = 5
                 self.run = 0
 
 
