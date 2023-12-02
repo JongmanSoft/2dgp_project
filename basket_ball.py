@@ -74,11 +74,12 @@ class basket_ball_scene:
         self.goal_dae = goal()
         self.balls= [ball()]
 
-        self.start =get_time()
+        self.start = None
         pass
 
 
     def enter(self):
+        self.start= get_time()
         self.bgm.repeat_play()
         pass
 
@@ -92,7 +93,7 @@ class basket_ball_scene:
         self.goal_dae.update()
         for b in self.balls:
             b.update()
-        if (self.balls[0].z<=80 and self.balls[0].x>self.goal_dae.x-70 and self.balls[0].x<self.goal_dae.x+70 and self.balls[0].y<600-194 and self.balls[0].y > 600-205 ): server.bask_goal_score += 1 ; self.wavs[1].play()
+        if (self.balls[0].z<=80 and self.balls[0].x>self.goal_dae.x-70 and self.balls[0].x<self.goal_dae.x+70 and self.balls[0].y<600-184 and self.balls[0].y > 600-215 ): server.bask_my_score += 1 ; self.wavs[1].play()
 
         pass
 
@@ -106,8 +107,8 @@ class basket_ball_scene:
             b.draw()
         if (self.balls[0].z <= 80): self.goal_dae.ring_draw()
 
-        self.font.draw(70, 560, f"time : {int(67 - (get_time() - self.start))}", (0, 0, 0))
-        self.font.draw(70, 520, f"score : {server.bask_goal_score}", (0, 0, 0))
+        self.font.draw(70, 560, f"time : {int(60 - (get_time() - self.start))}", (0, 0, 0))
+        self.font.draw(70, 520, f"score : {server.bask_my_score}", (0, 0, 0))
         pass
 
 
@@ -115,6 +116,12 @@ class basket_ball_scene:
         sx ,sy =0,0
         events = get_events()
         for event in events:
+            if event.type == SDL_KEYDOWN and event.key == SDLK_UP:
+                server.bask_my_score = 99
+                self.run = 0
+            if event.type == SDL_KEYDOWN and event.key == SDLK_DOWN:
+                server.bask_my_score = 0
+                self.run = 0
             if event.type == SDL_MOUSEBUTTONDOWN and event.button ==1 :
                 sx = event.x
                 sy = 600-event.y
@@ -126,6 +133,8 @@ class basket_ball_scene:
                 self.balls[0].dir = 2* calculate_angle(sx,sy,event.x,600-event.y)
                 self.balls[0].speed = 3
                 pass
+        if (60-(get_time()-self.start) <= 0):
+            self.run = 0
 
 
     def running(self):

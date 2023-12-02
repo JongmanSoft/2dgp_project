@@ -7,7 +7,7 @@ import basket_ball
 import server
 open_canvas(800, 600)
 current_scene = 0
-scene = [title.Title(), text_scene.text_scene(0),text_scene.text_scene(1),bowling.bowling_scene(),text_scene.text_scene(2), air_hockey_scene.air_hockey_scene(),text_scene.text_scene(3),basket_ball.basket_ball_scene()]
+scene = [title.Title(), text_scene.text_scene(0),text_scene.text_scene(1),bowling.bowling_scene(),text_scene.text_scene(2), air_hockey_scene.air_hockey_scene(),text_scene.text_scene(3),basket_ball.basket_ball_scene(),text_scene.text_scene(4)]
 #scene = [ bowling.bowling_scene()]
 T = text_scene.text_scene()
 

@@ -45,7 +45,7 @@ class my_handle:
     def draw(self):
         self.sprite.draw(self.x, self.y)
     def update(self):
-        if self.time+2 < get_time():
+        if self.time+1 < get_time():
             self.time = get_time()
             self.sx = self.x
             self.sy = self.y
@@ -117,7 +117,7 @@ class air_hockey_scene:
         dis_1 = sqrt((self.objects[0].x - self.objects[1].x)**2 + (self.objects[0].y - self.objects[1].y)**2)
         dis_2 = sqrt((self.objects[0].x - self.objects[2].x) ** 2 + (self.objects[0].y - self.objects[2].y) ** 2)
         if (self.objects[0].y <= 300):self.objects[2].attack =0
-        if (self.objects[0].y>300 and self.objects[0].y<450 ):
+        if (self.objects[0].y>300 and self.objects[0].y<450 and not self.objects[0].ydir==0):
             if (self.objects[2].attack == 0 or self.objects[2].attack ==3 ):self.objects[2].attack =1
             self.objects[2].move(self.objects[0].x ,self.objects[0].y)
 
@@ -128,8 +128,8 @@ class air_hockey_scene:
                 dis =[self.objects[0].x - self.objects[1].x,self.objects[0].y - self.objects[1].y]
                 self.objects[0].x += dis[0]
                 self.objects[0].y += dis[1]
-                self.objects[0].xdir = self.objects[1].x -self.objects[1].sx
-                self.objects[0].ydir = self.objects[1].y - self.objects[1].sy
+                self.objects[0].xdir =4*( self.objects[0].x -self.objects[1].x )
+                self.objects[0].ydir =4*( self.objects[0].y - self.objects[1].y)
         if dis_2 <= 50:
                 self.tanking.play()
                 dis =[self.objects[0].x - self.objects[2].x,self.objects[0].y - self.objects[2].y]

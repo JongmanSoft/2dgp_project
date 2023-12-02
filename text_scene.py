@@ -56,8 +56,13 @@ class text_scene:
             self.text.append((8, "박아현", f"{server.bow_goal_score}점인데 ㄱㄴ?",0))
             self.text.append((0, "주인공", "(뭐야...별거없네)", 1))
             self.text.append((0, "주인공", "(기다려라 박아현! 널 내여자로 만들겠어!)", 1))
-        if (round >= 2):
+        if (round == 3):
             self.text.append((0, "", "게임이 끝났다...", 1))
+        if (round== 4):
+            self.text.append((0, "", "농구가 끝났다...", 1))
+            server.bask_goal_score = random.randint(4,9)
+            self.text.append((0,"",f"아현이의 점수는 {server.bask_goal_score}점인가...",1))
+
 
 
 
@@ -84,6 +89,8 @@ class text_scene:
                 self.text.append((0, "주인공", "다...다행이다 끝이아니구나!", 1))
                 self.text.append((0, "주인공", "(에어하키에서는 반드시 이겨주겠어!)", 1))
             else :
+                server.win +=1
+
                 self.text.append((5, "박아현", "이런젠장!! 내가 지다니!!!", 0))
                 self.text.append((0, "주인공", "휴...겨우이겼어", 1))
                 self.text.append((3, "박아현", "ㄱㅊ 아직끝아님", 0))
@@ -102,6 +109,8 @@ class text_scene:
                 self.text.append((0, "주인공", "이제 마지막 승부야...", 1))
                 self.text.append((0, "주인공", "반드시 이길거야!", 1))
             else :
+                server.win +=1
+
                 self.text.append((6, "박아현", "ㅋㅋㅋㅋ아니 어케 이겼노ㅋㅋ 핵씀?", 0))
                 self.text.append((0, "주인공", "어케알았지?", 1))
                 self.text.append((3, "박아현", "후...이제 마지막 승부만이 남았어", 0))
@@ -109,6 +118,27 @@ class text_scene:
                 self.text.append((8, "박아현", "농구.", 0))
                 self.text.append((0, "주인공", "윽,,,농구? 내가 할수있을까...", 1))
                 self.text.append((0, "주인공", "아냐, 할수있을까가 아니지. 반드시 이길거야!", 1))
+            text_update[3] = 1
+        if (server.text_round == 4  and text_update[4] == 0):
+            if (server.bask_goal_score >= server.bask_my_score):
+                self.text.append((3, "박아현", "헤헷~ 제가 이겻네여?", 0))
+                self.text.append((0, "주인공", "젠장...나도 잘했다고 생각했는데!", 1))
+            else :
+                server.win+=1
+                self.text.append((6, "박아현", "엄멍 ㅠㅠ 제가 졌네여 ㅠㅠ", 0))
+                self.text.append((0, "주인공", "휴!!", 1))
+            self.text.append((7, "박아현",f"그럼 총{server.win}:{3-server.win}...", 0))
+            if (server.win>=2):
+                self.text.append((0, "주인공", "내...내가 이겼다!!!", 1))
+                self.text.append((0, "박아현", "....", 0))
+
+
+
+
+
+            else:
+                self.text.append((0, "주인공", "지고 말았어...", 1))
+
             text_update[3] = 1
 
         pass
