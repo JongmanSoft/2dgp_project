@@ -65,12 +65,15 @@ class basket_ball_scene:
     run = 1
     def __init__(self):
         self.back = load_image('resource/basketball_background.png')
+        self.bgm = load_music('resource/battle.mp3')
+        self.wavs = [load_wav('resource/shoot.wav')]
         self.goal_dae = goal()
         self.balls= [ball()]
         pass
 
 
     def enter(self):
+        self.bgm.repeat_play()
         pass
 
     def exit(self):
@@ -106,6 +109,7 @@ class basket_ball_scene:
             if event.type == SDL_MOUSEMOTION:
                 pass
             if event.type == SDL_MOUSEBUTTONUP and event.button ==1:
+                self.wavs[0].play()
                 self.balls[0].dir = 2* calculate_angle(sx,sy,event.x,600-event.y)
                 print(self.balls[0].dir)
                 self.balls[0].speed = 3
