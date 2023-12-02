@@ -1,5 +1,6 @@
 from pico2d import *
 from math import radians,cos,sin,atan2,degrees,sqrt
+import server
 time = 0
 
 
@@ -26,7 +27,7 @@ class goal:
     def update(self):
         global time
         time_speed = time
-        if (time > 50):time_speed = 50
+        if (time > 5):time_speed = 5
         self.x += (1+time/10.0)*self.dir
         if (self.x>650):self.dir = -1
         if (self.x <150):self.dir = 1
@@ -44,6 +45,7 @@ class ball:
         self.dir = 90
         self.speed = 0
         self.frame = 0
+
     def update(self):
         if (self.speed != 0):
             self.frame += 1
@@ -66,9 +68,13 @@ class basket_ball_scene:
     def __init__(self):
         self.back = load_image('resource/basketball_background.png')
         self.bgm = load_music('resource/battle.mp3')
-        self.wavs = [load_wav('resource/shoot.wav')]
+        self.wavs = [load_wav('resource/shoot.wav'),load_wav('resource/goal.mp3')]
+        self.font = load_font('resource/떡볶이체.ttf',32)
+
         self.goal_dae = goal()
         self.balls= [ball()]
+
+        
         pass
 
 
@@ -86,6 +92,8 @@ class basket_ball_scene:
         self.goal_dae.update()
         for b in self.balls:
             b.update()
+        if (self.balls[0].z<=80 and self.balls[0].x>self.goal_dae.x-70 and self.balls[0].x<self.goal_dae.x+70 and self.balls[0].y<600-194 and self.balls[0].y > 600-205 ): server.bask_goal_score += 1 ; self.wavs[1].play()
+
         pass
 
     def draw(self):

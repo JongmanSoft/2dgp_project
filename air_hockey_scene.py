@@ -8,6 +8,8 @@ def collision_angle(x1, y1, x2, y2):
 class puck:
     def __init__(self):
         self.sprite = load_image('resource/puck.png')
+        self.goal_sound = load_wav('resource/goal.mp3')
+        self.lose_sound = load_wav('resource/lose.wav')
         self.x = 400
         self.y = 300
         self.xdir = 0
@@ -25,8 +27,8 @@ class puck:
         if (self.y > 540 ):self.y = 540;self.ydir = -abs(self.ydir)
         if (self.y < 60): self.y =60; self.ydir = abs(self.ydir)
 
-        if (self.x >= 335 and self.x<=455 and self.y>520): self.x = 400; self.y = 300; server.a_my_score +=1 ; self.ydir = 0;self.xdir =0
-        if (self.x >= 335 and self.x <= 455 and self.y < 80): self.x = 400; self.y = 300; server.a_you_score += 1 ; self.ydir =0 ; self.xdir=0
+        if (self.x >= 335 and self.x<=455 and self.y>520): self.goal_sound.play();self.x = 400; self.y = 300; server.a_my_score +=1 ; self.ydir = 0;self.xdir =0
+        if (self.x >= 335 and self.x <= 455 and self.y < 80): self.lose_sound.play();self.x = 400; self.y = 300; server.a_you_score += 1 ; self.ydir =0 ; self.xdir=0
 
 
 
