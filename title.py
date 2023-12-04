@@ -1,5 +1,5 @@
 from pico2d import *
-
+import server
 
 class Title:
     animation =0
@@ -23,12 +23,12 @@ class Title:
 
     def update(self):
         if self.animation > 0:
-            if self.animation > 40:
+            if self.title_polygon[1] > 900:
                 self.exit()
             else :
-                self.title_polygon[1] += 10
-                self.title_name[1] += 20
-                self.title_sub[1] += 20
+                self.title_polygon[1] += server.frame_time*300
+                self.title_name[1] += server.frame_time*600
+                self.title_sub[1] += server.frame_time*600
                 self.animation += 1
 
     def draw(self):

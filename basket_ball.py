@@ -3,7 +3,7 @@ from math import radians,cos,sin,atan2,degrees,sqrt
 import server
 time = 0
 
-
+shut = 0
 def calculate_angle(x1, y1, x2, y2):
 
     x2 -= x1
@@ -28,7 +28,7 @@ class goal:
         global time
         time_speed = time
         if (time > 3):time_speed = 3
-        self.x += (1+time/10.0)*self.dir
+        self.x += (1+time/10.0)*self.dir*server.frame_time
         if (self.x>650):self.dir = -1
         if (self.x <150):self.dir = 1
     def draw(self):
@@ -37,6 +37,7 @@ class goal:
         self.sprite[1].draw(self.x,300)
 
 class ball:
+
     def __init__(self):
         self.sprite = load_image('resource/basketball.png')
         self.x = 400
@@ -48,18 +49,18 @@ class ball:
 
     def update(self):
         if (self.speed != 0):
-            self.frame += 1
-            self.frame = self.frame%6
+            self.frame = (self.frame +server.frame_time*15)%6
             if (self.z > 80):
-                self.x += cos(radians(self.dir)) * self.speed * 15
-                self.y += sin(radians(self.dir)) * self.speed * 15
-                self.z -= self.speed*4
+                self.x += cos(radians(self.dir)) * server.frame_time*200*4
+                self.y += sin(radians(self.dir)) * server.frame_time*200*4
+                self.z -= self.speed*4 *server.frame_time*20
             else:
-                self.y -= self.speed * 10
-                if (self.y < 0) : self.x =400; self.y = 100; self.z = 200;self.speed = 0;self.dir = 90
+                global shut
+                self.y -= server.frame_time*200 * 10
+                if (self.y < 0) : self.x =400; self.y = 100; self.z = 200;self.speed = 0;self.dir = 90;shut = 0
 
     def draw(self):
-        self.sprite.clip_composite_draw(100*self.frame,0,100,100,radians(self.dir-90),'0',self.x ,self.y ,self.z,self.z)
+        self.sprite.clip_composite_draw(100*int(self.frame),0,100,100,radians(self.dir-90),'0',self.x ,self.y ,self.z,self.z)
 
 
 class basket_ball_scene:
@@ -69,6 +70,7 @@ class basket_ball_scene:
         self.back = load_image('resource/basketball_background.png')
         self.bgm = load_music('resource/battle.mp3')
         self.wavs = [load_wav('resource/shoot.wav'),load_wav('resource/goal.mp3')]
+        self.wavs[0].set_volume(20)
         self.font = load_font('resource/떡볶이체.ttf', 25)
 
         self.goal_dae = goal()
@@ -89,11 +91,12 @@ class basket_ball_scene:
 
     def update(self):
         global time
+        global shut
         time += 1
         self.goal_dae.update()
         for b in self.balls:
             b.update()
-        if (self.balls[0].z<=80 and self.balls[0].x>self.goal_dae.x-70 and self.balls[0].x<self.goal_dae.x+70 and self.balls[0].y<600-184 and self.balls[0].y > 600-215 ): server.bask_my_score += 1 ; self.wavs[1].play()
+        if (self.balls[0].z<=80 and self.balls[0].x>self.goal_dae.x-50 and self.balls[0].x<self.goal_dae.x+50 and self.balls[0].y<600-194 and self.balls[0].y > 600-205 and  shut ==0): shut = 1;server.bask_my_score += 1 ; self.wavs[1].play()
 
         pass
 

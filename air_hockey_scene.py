@@ -2,6 +2,7 @@ from pico2d import *
 import server
 from math import atan2, degrees ,sqrt ,cos, sin
 
+
 def collision_angle(x1, y1, x2, y2):
     angle = atan2(y2 - y1, x2 - x1)
     return degrees(angle)
@@ -20,8 +21,8 @@ class puck:
         self.sprite.draw(self.x, self.y)
 
     def update(self):
-        self.x = self.x + (self.xdir//10)
-        self.y = self.y + (self.ydir//10)
+        self.x = self.x + (self.xdir//10) *server.frame_time*20
+        self.y = self.y + (self.ydir//10) *server.frame_time*20
         if (self.x > 600):self.x = 600;self.xdir = -abs(self.xdir)
         if (self.x < 200):self.x = 200; self.xdir = abs(self.xdir)
         if (self.y > 540 ):self.y = 540;self.ydir = -abs(self.ydir)
@@ -76,14 +77,14 @@ class you_handle:
     def move(self,px,py):
         dis_ = sqrt((self.x - px )** 2 + (self.y - py) ** 2)
         if (self.attack == 1):
-            self.t+= 0.1
-            self.x = (1-self.t)*self.sx + self.t*px
-            self.y = (1 - self.t) * self.sy + self.t * py
+            self.t+= server.frame_time*3
+            self.x = ((1-self.t)*self.sx + self.t*px)
+            self.y = ((1 - self.t) * self.sy + self.t * py)
             if (self.t >= 1 or dis_ <= 50): self.sx = self.x ; self.sy = self.y ;self.t = 0; self.attack =2
         if (self.attack == 2):
-            self.t += 0.1
-            self.x = (1 - self.t) * self.sx + self.t * 400
-            self.y = (1 - self.t) * self.sy + self.t * 500
+            self.t += server.frame_time*3
+            self.x =( (1 - self.t) * self.sx + self.t * 400)
+            self.y =( (1 - self.t) * self.sy + self.t * 500)
             if (self.t >= 1): self.sx = self.x ; self.sy = self.y ; self.t = 0; self.attack = 3
             pass
 

@@ -33,16 +33,22 @@ class my_ball:
         self.speed = 0
         self.size = (200-(self.y/2))/2
     def draw(self):
-        self.sprite.clip_composite_draw(self.frame*50,0,50,50,0, 'h',self.x,self.y,200-(self.y/2),200-(self.y/2))
+        self.sprite.clip_composite_draw(
+            int(self.frame) * 50, 0, 50, 50, 0, 'h',
+            int(self.x), int(self.y),  # x, y 좌표를 정수로 변환
+            200 - int(self.y / 2), 200 - int(self.y / 2))
     def update(self):
-        if not(self.speed == 0):
-            self.frame += 1
-            self.frame = self.frame%6
-            if (self.x>self.y and self.x< 800-self.y):self.x += cos(radians(self.dir))*self.speed
-            elif (self.x >400):self.x -= self.y/300 * self.speed
-            else : self.x +=self.y/300 * self.speed
 
-            self.y += sin(radians(self.dir))*self.speed
+        if not(self.speed == 0):
+            self.frame = (self.frame+15* server.frame_time)%6
+            if (self.x > self.y and self.x < 800 - self.y):
+                self.x += cos(radians(self.dir)) * 300 * server.frame_time
+            elif (self.x > 400):
+                self.x -= self.y / 300 * 300 * server.frame_time
+            else:
+                self.x += self.y / 300 * 300 * server.frame_time
+
+            self.y += sin(radians(self.dir)) * 300 * server.frame_time
 
         pass
 
@@ -111,7 +117,7 @@ class bowling_scene:
 
 
         if (self.state==0):
-            self.balls[0].dir += 10* self.add
+            self.balls[0].dir += server.frame_time*200 * self.add
             if (self.balls[0].dir > 150): self.add = -1
             if (self.balls[0].dir < 30 ): self.add =  1
 

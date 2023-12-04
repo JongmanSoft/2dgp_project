@@ -60,7 +60,7 @@ class text_scene:
             self.text.append((0, "", "게임이 끝났다...", 1))
         if (round== 4):
             self.text.append((0, "", "농구가 끝났다...", 1))
-            server.bask_goal_score = random.randint(4,9)
+            server.bask_goal_score = random.randint(7,14)
             self.text.append((0,"",f"아현이의 점수는 {server.bask_goal_score}점인가...",1))
 
 
